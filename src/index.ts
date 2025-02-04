@@ -1,12 +1,15 @@
 import express, { Request, Response } from 'express';
 import EmailRoutes from "./routes/EmailRoutes";
+import AuthRoutes from "./routes/AuthRoutes";
 import {auth} from "express-oauth2-jwt-bearer";
 
 const app = express();
 import pkg from 'pg';
 const { Client } = pkg;
 
+app.use(express.json());
 app.use('/api/mail', EmailRoutes);
+app.use('/api/auth', AuthRoutes);
 
 
 const client = new Client({
