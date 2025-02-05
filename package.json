@@ -1,9 +1,13 @@
 {
+  "type": "module",
   "name": "email-service-challenge",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "start": "npm run build && node ./src/server.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon"
   },
   "repository": {
     "type": "git",
@@ -15,5 +19,22 @@
     "url": "https://github.com/lizlubelczyk/email-service-challenge/issues"
   },
   "homepage": "https://github.com/lizlubelczyk/email-service-challenge#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "@prisma/client": "^6.3.1",
+    "axios": "^1.7.9",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-oauth2-jwt-bearer": "^1.6.0",
+    "pg": "^8.13.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.1",
+    "@types/pg": "^8.11.11",
+    "nodemon": "^3.1.9",
+    "prisma": "^6.3.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  }
 }
