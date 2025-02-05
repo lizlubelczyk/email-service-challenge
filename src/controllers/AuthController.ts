@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
 import { AuthService } from '../services/AuthService';
 import { AuthManager } from "../config/auht0config";
-import { RegisterDTO } from '../dto/RegisterDTO';
-import {LoginDto} from "../dto/LoginDTO";
+import { RegisterDTO } from '../dto/auth/RegisterDTO';
+import {LoginDto} from "../dto/auth/LoginDTO";
+import UserRepository from "../repositories/UserRepository";
 
 class AuthController {
     private authService: AuthService;
@@ -50,4 +51,4 @@ class AuthController {
     }
 }
 
-export default new AuthController(new AuthService(new AuthManager()));
+export default new AuthController(new AuthService(new AuthManager(), new UserRepository()));

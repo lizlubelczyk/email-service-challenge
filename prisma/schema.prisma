@@ -18,3 +18,14 @@ model Email {
   senderEmail     String
   createdAt DateTime @default(now())
 }
+
+model UserRole {
+    id        String   @id @default(cuid())
+    email     String   @unique
+    role      Role     @default(USER)
+}
+
+enum Role {
+    USER
+    ADMIN
+}
