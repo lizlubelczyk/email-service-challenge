@@ -1,11 +1,15 @@
-import {AuthManager} from "../config/auht0config";
-import {AxiosResponse} from "axios";
+import { AuthManager } from "../config/auht0config";
+import { AxiosResponse } from "axios";
+import { CreateUserDTO } from "../dto/user/CreateUserDTO";
+import UserRepository from "../repositories/UserRepository";
 
-export class AuthService{
+export class AuthService {
     private authManager: AuthManager;
+    private userRepository: UserRepository;
 
-    constructor(authManager: AuthManager){
+    constructor(authManager: AuthManager, userRepository: UserRepository) {
         this.authManager = authManager;
+        this.userRepository = userRepository;
     }
 
     public async login(email: string, password: string): Promise<AxiosResponse | undefined> {
@@ -15,8 +19,12 @@ export class AuthService{
 
     public async register(email: string, password: string): Promise<AxiosResponse | undefined> {
         console.log('AuthService.register');
-        return this.authManager.register(email, password);
+        const response = await this.authManager.register(email, password);
+        if (response && response.data) {
+            await this.userRepository.create(new CreateUserDTO(email));
+        }
+        return response;
     }
 }
 
-export default new AuthService(new AuthManager());
+export default new AuthService(new AuthManager(), new UserRepository());
