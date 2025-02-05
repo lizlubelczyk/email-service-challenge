@@ -35,15 +35,5 @@ client.connect((err: Error) => {
     }
 });
 
-const jwtCheck = auth({
-    audience: 'https://email-service/',
-    issuerBaseURL: 'https://dev-c4pw18jpzniw8r8y.us.auth0.com/',
-    tokenSigningAlg: 'RS256'
-});
-
-app.use(jwtCheck);
-app.get('/authorized', (req: Request, res: Response) => {
-    res.send('Secured Resource');
-});
 
 export default app;
