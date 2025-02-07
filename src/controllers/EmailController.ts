@@ -1,4 +1,3 @@
-// src/controllers/EmailController.ts
 import { Request, Response } from 'express';
 import { EmailService } from '../services/EmailService';
 import EmailRepository from "../repositories/EmailRepository";
@@ -26,9 +25,14 @@ class EmailController {
             await this.emailService.sendEmail(sendEmailDTO, senderEmail);
             console.log('EmailController: Email sent successfully');
             res.status(200).send('Email sent successfully');
-        } catch (error) {
+        } catch (err) {
+            const error = err as Error;
             console.error('EmailController: Failed to send email', error);
-            res.status(500).send('Failed to send email');
+            if (error.message === 'You have reached the maximum email limit for today') {
+                res.status(429).send('Failed to send email: You have reached the maximum email limit for today');
+            } else {
+                res.status(500).send('Failed to send email');
+            }
         }
     }
 }

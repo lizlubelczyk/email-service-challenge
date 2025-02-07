@@ -5,11 +5,13 @@ import {auth} from "express-oauth2-jwt-bearer";
 
 const app = express();
 import pkg from 'pg';
+import StatsRoutes from "./routes/StatsRoutes";
 const { Client } = pkg;
 
 app.use(express.json());
 app.use('/api/mail', EmailRoutes);
 app.use('/api/auth', AuthRoutes);
+app.use('/api/stats', StatsRoutes);
 
 
 const client = new Client({

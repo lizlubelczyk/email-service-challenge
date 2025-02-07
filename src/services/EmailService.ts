@@ -13,10 +13,12 @@ export class EmailService {
     public async sendEmail(sendEmailDTO: SendEmailDTO, senderEmail: string): Promise<void> {
         console.log(`Sending email to ${sendEmailDTO.to}`);
         try {
-            // Save email to the database
+            const emailCount = await this.emailRepository.getEmailCountForUserToday(senderEmail);
+            if (emailCount >= 1000) {
+                throw new Error('You have reached the maximum email limit for today');
+            }
             await this.emailRepository.createEmail(senderEmail);
 
-            // Try sending the email via Mailgun
             let emailSent = false;
             try {
                 await sendMailgunEmail(sendEmailDTO, senderEmail); // Attempt to send via Mailgun
@@ -24,7 +26,6 @@ export class EmailService {
                 console.log('Email sent via Mailgun');
             } catch (error) {
                 console.log('Mailgun failed, attempting to send via SendGrid...');
-                // Mailgun failed, but do not throw the error. We want to continue to SendGrid.
             }
 
             // If Mailgun failed, try SendGrid

@@ -17,6 +17,28 @@ class UserRepository {
         });
   }
 
+  public async findByEmail(email: string): Promise<user | null> {
+    console.log('UserRepository.findByEmail');
+    return this.prisma.user.findUnique({
+        where: {
+            email,
+        },
+    });
+  }
+
+    public async isAdmin(email: string): Promise<boolean> {
+        console.log('UserRepository.isAdmin');
+        const user = await this.prisma.user.findUnique({
+            where: {
+                email,
+            },
+            select: {
+                role: true,
+            },
+        });
+        console.log('UserRepository.isAdmin: user', user);
+        return user?.role === 'ADMIN';
+    }
 }
 
 export default UserRepository;
