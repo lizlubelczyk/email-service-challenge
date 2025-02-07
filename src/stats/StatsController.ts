@@ -1,9 +1,9 @@
-import StatsService from "../services/StatsService";
-import EmailRepository from "../repositories/EmailRepository";
-import {AuthService} from "../services/AuthService";
+import StatsService from "./StatsService";
+import EmailRepository from "../email/EmailRepository";
+import {AuthService} from "../auth/AuthService";
 import { Request, Response } from 'express';
-import {AuthManager} from "../config/auht0config";
-import UserRepository from "../repositories/UserRepository";
+import {AuthManager} from "../auth/auht0config";
+import UserRepository from "../auth/UserRepository";
 
 class StatsController {
     private statsService: StatsService;

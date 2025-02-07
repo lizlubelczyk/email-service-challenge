@@ -1,7 +1,7 @@
-import EmailRepository from '../repositories/EmailRepository';
-import { SendEmailDTO } from "../dto/email/SendEmailDTO";
-import sendMailgunEmail from "../util/sendMailgunEmail";
-import sendSendgridEmail from "../util/sendSendgridEmail";
+import EmailRepository from './EmailRepository';
+import { SendEmailDTO } from "./dto/SendEmailDTO";
+import sendMailgunEmail from "./emailProviders/sendMailgunEmail";
+import sendSendgridEmail from "./emailProviders/sendSendgridEmail";
 
 export class EmailService {
     private emailRepository: EmailRepository;
@@ -21,21 +21,19 @@ export class EmailService {
 
             let emailSent = false;
             try {
-                await sendMailgunEmail(sendEmailDTO, senderEmail); // Attempt to send via Mailgun
+                await sendMailgunEmail(sendEmailDTO, senderEmail);
                 emailSent = true;
                 console.log('Email sent via Mailgun');
             } catch (error) {
                 console.log('Mailgun failed, attempting to send via SendGrid...');
             }
 
-            // If Mailgun failed, try SendGrid
             if (!emailSent) {
                 try {
-                    await sendSendgridEmail(sendEmailDTO, senderEmail); // Attempt to send via SendGrid
+                    await sendSendgridEmail(sendEmailDTO, senderEmail);
                     console.log('Email sent via SendGrid');
                 } catch (error) {
                     console.error('Both Mailgun and SendGrid failed to send the email');
-                    // Throw an error only after both services have failed.
                     throw new Error('Failed to send email via both Mailgun and SendGrid');
                 }
             }

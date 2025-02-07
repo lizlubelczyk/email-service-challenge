@@ -1,6 +1,6 @@
-import UserRepository from "../repositories/UserRepository";
-import EmailRepository from "../repositories/EmailRepository";
-import emailRepository from "../repositories/EmailRepository";
+import UserRepository from "../auth/UserRepository";
+import EmailRepository from "../email/EmailRepository";
+import emailRepository from "../email/EmailRepository";
 
 class StatsService {
     private emailRepository: EmailRepository;

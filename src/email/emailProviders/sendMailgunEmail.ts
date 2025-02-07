@@ -1,6 +1,6 @@
 import nodemailer, { Transporter, SentMessageInfo } from 'nodemailer';
 import dotenv from 'dotenv';
-import {SendEmailDTO} from "../dto/email/SendEmailDTO";
+import {SendEmailDTO} from "../dto/SendEmailDTO";
 
 dotenv.config();
 
