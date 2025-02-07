@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { EmailService } from '../services/EmailService';
-import EmailRepository from "../repositories/EmailRepository";
-import {SendEmailDTO} from "../dto/email/SendEmailDTO";  // Import the class, not the instance
+import { EmailService } from './EmailService';
+import EmailRepository from "./EmailRepository";
+import {SendEmailDTO} from "./dto/SendEmailDTO";  // Import the class, not the instance
 
 
 class EmailController {

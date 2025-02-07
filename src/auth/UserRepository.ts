@@ -1,4 +1,4 @@
-import {CreateUserDTO} from "../dto/user/CreateUserDTO";
+import {CreateUserDTO} from "./dto/CreateUserDTO";
 import {PrismaClient, user } from "@prisma/client";
 
 class UserRepository {

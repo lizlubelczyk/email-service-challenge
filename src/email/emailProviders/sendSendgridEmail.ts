@@ -1,5 +1,5 @@
 import sgMail from '@sendgrid/mail';
-import {SendEmailDTO} from "../dto/email/SendEmailDTO";
+import {SendEmailDTO} from "../dto/SendEmailDTO";
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
 

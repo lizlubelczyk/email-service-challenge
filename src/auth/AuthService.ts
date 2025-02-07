@@ -1,7 +1,7 @@
-import { AuthManager } from "../config/auht0config";
+import { AuthManager } from "./auht0config";
 import { AxiosResponse } from "axios";
-import { CreateUserDTO } from "../dto/user/CreateUserDTO";
-import UserRepository from "../repositories/UserRepository";
+import { CreateUserDTO } from "./dto/CreateUserDTO";
+import UserRepository from "./UserRepository";
 
 export class AuthService {
     private authManager: AuthManager;

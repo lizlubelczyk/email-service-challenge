@@ -1,18 +1,16 @@
 import express, { Request, Response } from 'express';
-import EmailRoutes from "./routes/EmailRoutes";
-import AuthRoutes from "./routes/AuthRoutes";
-import {auth} from "express-oauth2-jwt-bearer";
+import EmailRoutes from "./email/EmailRoutes";
+import AuthRoutes from "./auth/AuthRoutes";
 
 const app = express();
 import pkg from 'pg';
-import StatsRoutes from "./routes/StatsRoutes";
+import StatsRoutes from "./stats/StatsRoutes";
 const { Client } = pkg;
 
 app.use(express.json());
 app.use('/api/mail', EmailRoutes);
 app.use('/api/auth', AuthRoutes);
 app.use('/api/stats', StatsRoutes);
-
 
 const client = new Client({
     user: 'new_user',

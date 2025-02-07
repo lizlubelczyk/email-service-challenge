@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const express_oauth2_jwt_bearer_1 = require("express-oauth2-jwt-bearer");
 const pg_1 = require("pg");
-const EmailRoutes_1 = __importDefault(require("./routes/EmailRoutes.js"));
+const EmailRoutes_1 = __importDefault(require("./email/EmailRoutes.js"));
 const app = (0, express_1.default)();
 const port = process.env.PORT || 8080;
 const client = new pg_1.Client({
