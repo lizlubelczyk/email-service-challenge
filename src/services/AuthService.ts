@@ -25,6 +25,11 @@ export class AuthService {
         }
         return response;
     }
+
+    public async isAdmin(email: string): Promise<boolean> {
+        console.log('AuthService.isAdmin');
+        return this.userRepository.isAdmin(email);
+    }
 }
 
 export default new AuthService(new AuthManager(), new UserRepository());
