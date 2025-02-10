@@ -15,9 +15,7 @@ async function sendSendgridEmail(sendEmailDTO: SendEmailDTO, replyTo: string): P
         };
 
         await sgMail.send(msg);
-        console.log('Email sent successfully via Sendgrid');
     } catch (error) {
-        console.error('Error sending email via Sendgrid:', error);
         throw error;
     }
 }

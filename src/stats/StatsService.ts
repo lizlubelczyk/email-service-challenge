@@ -10,9 +10,7 @@ class StatsService {
     }
 
     public async getStats(): Promise<{ email: string, emailCount: number }[]> {
-        console.log('StatsService.getStats')
         const stats = await this.emailRepository.getUserEmailStatsForToday();
-        console.log('StatsService.getStats: stats', stats);
         return stats;
     }
 }

@@ -26,7 +26,6 @@ class AuthController {
                 res.status(500).send('Login failed');
             }
         } catch (error) {
-            console.log(error);
             res.status(500).send('Login failed');
         }
     }
@@ -45,7 +44,6 @@ class AuthController {
                 res.status(500).send('Registration failed');
             }
         } catch (error) {
-            console.log(error);
             res.status(500).send('Registration failed');
         }
     }
