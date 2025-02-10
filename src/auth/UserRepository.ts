@@ -9,7 +9,6 @@ class UserRepository {
   }
 
   public async create(data: CreateUserDTO): Promise<user> {
-        console.log('UserRepository.create');
         return this.prisma.user.create({
             data: {
                 email: data.email,
@@ -17,17 +16,7 @@ class UserRepository {
         });
   }
 
-  public async findByEmail(email: string): Promise<user | null> {
-    console.log('UserRepository.findByEmail');
-    return this.prisma.user.findUnique({
-        where: {
-            email,
-        },
-    });
-  }
-
     public async isAdmin(email: string): Promise<boolean> {
-        console.log('UserRepository.isAdmin');
         const user = await this.prisma.user.findUnique({
             where: {
                 email,
@@ -36,7 +25,6 @@ class UserRepository {
                 role: true,
             },
         });
-        console.log('UserRepository.isAdmin: user', user);
         return user?.role === 'ADMIN';
     }
 }

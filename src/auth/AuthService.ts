@@ -13,12 +13,10 @@ export class AuthService {
     }
 
     public async login(email: string, password: string): Promise<AxiosResponse | undefined> {
-        console.log('AuthService.login');
         return this.authManager.login(email, password);
     }
 
     public async register(email: string, password: string): Promise<AxiosResponse | undefined> {
-        console.log('AuthService.register');
         const response = await this.authManager.register(email, password);
         if (response && response.data) {
             await this.userRepository.create(new CreateUserDTO(email));
@@ -27,7 +25,6 @@ export class AuthService {
     }
 
     public async isAdmin(email: string): Promise<boolean> {
-        console.log('AuthService.isAdmin');
         return this.userRepository.isAdmin(email);
     }
 }

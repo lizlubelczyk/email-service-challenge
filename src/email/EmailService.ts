@@ -11,7 +11,6 @@ export class EmailService {
     }
 
     public async sendEmail(sendEmailDTO: SendEmailDTO, senderEmail: string): Promise<void> {
-        console.log(`Sending email to ${sendEmailDTO.to}`);
         try {
             const emailCount = await this.emailRepository.getEmailCountForUserToday(senderEmail);
             if (emailCount >= 1000) {
@@ -23,24 +22,19 @@ export class EmailService {
             try {
                 await sendMailgunEmail(sendEmailDTO, senderEmail);
                 emailSent = true;
-                console.log('Email sent via Mailgun');
             } catch (error) {
-                console.log('Mailgun failed, attempting to send via SendGrid...');
+                console.error('Mailgun failed to send the email');
             }
 
             if (!emailSent) {
                 try {
                     await sendSendgridEmail(sendEmailDTO, senderEmail);
-                    console.log('Email sent via SendGrid');
                 } catch (error) {
-                    console.error('Both Mailgun and SendGrid failed to send the email');
                     throw new Error('Failed to send email via both Mailgun and SendGrid');
                 }
             }
 
-            console.log(`Email saved to database for ${sendEmailDTO.to}`);
         } catch (error) {
-            console.error('Error handling email sending:', error);
             throw error;
         }
     }

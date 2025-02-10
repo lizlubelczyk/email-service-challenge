@@ -34,13 +34,10 @@ class AuthManager {
   }
 
   public async login(email: string, password: string): Promise<AxiosResponse | undefined> {
-      console.log('AuthConfig.login');
     const accessToken = await this.getAuth0Token();
     if (!accessToken) {
-         console.log('Error al obtener el token');
       throw new Error('Failed to obtain access token');
     }
-    console.log('Access token:', accessToken);
     const response: AxiosResponse = await axios.post(
       `https://${authVariables.authDomain}/oauth/token`,
       {
@@ -59,7 +56,6 @@ class AuthManager {
         },
       }
     );
-    console.log('Response:', response);
     return response;
   }
 

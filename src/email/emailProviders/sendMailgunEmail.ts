@@ -26,10 +26,8 @@ async function sendMailgunEmail(sendEmailDTO: SendEmailDTO, replyTo: string): Pr
 
         const info: SentMessageInfo = await transporter.sendMail(mailOptions);
 
-        console.log('Email sent: ' + info.response);
         return info;
     } catch (error) {
-        console.error('Error sending email via Mailgun:', error);
         throw error;
     }
 }

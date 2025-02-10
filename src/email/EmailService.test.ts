@@ -53,7 +53,6 @@ describe('EmailService - Failover Test', () => {
         };
         const senderEmail = 'sender@example.com';
 
-        // Mock email count to allow sending
         emailRepository.getEmailCountForUserToday.mockResolvedValue(10);
         emailRepository.createEmail.mockResolvedValue({
             id: "1",
@@ -61,10 +60,8 @@ describe('EmailService - Failover Test', () => {
             createdAt: new Date(),
         });
 
-        // Mock Mailgun failure
         (sendMailgunEmail as jest.Mock).mockRejectedValue(new Error('Mailgun failed'));
 
-        // Mock SendGrid failure
         (sendSendgridEmail as jest.Mock).mockRejectedValue(new Error('SendGrid failed'));
 
         await expect(emailService.sendEmail(sendEmailDTO, senderEmail))

@@ -16,7 +16,6 @@ class EmailRepository {
     }
 
     public async getUserEmailStatsForToday(): Promise<{ email: string, emailCount: number }[]> {
-        console.log('EmailRepository.getUserEmailStatsForToday');
         const today = new Date();
         const startOfDay = new Date(today.setHours(0, 0, 0, 0));
         const emailStats = await this.prisma.email.groupBy({
@@ -30,7 +29,6 @@ class EmailRepository {
                 senderEmail: true,
             },
         });
-        console.log('EmailRepository.getUserEmailStatsForToday: emailStats', emailStats);
 
         return emailStats.map(stat => ({
             email: stat.senderEmail,
