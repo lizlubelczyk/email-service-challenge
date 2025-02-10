@@ -3,19 +3,23 @@ import EmailRepository from "./EmailRepository";
 import {SendEmailDTO} from "./dto/SendEmailDTO";
 import sendMailgunEmail from "./emailProviders/sendMailgunEmail";
 import sendSendgridEmail from "./emailProviders/sendSendgridEmail";
+import RetryRepository from "./RetryRepository";
 
 
 jest.mock('./emailProviders/sendMailgunEmail');
 jest.mock('./emailProviders/sendSendgridEmail');
 jest.mock('./EmailRepository');
+jest.mock('./RetryRepository');
 
 describe('EmailService - Failover Test', () => {
     let emailService: EmailService;
     let emailRepository: jest.Mocked<EmailRepository>;
+    let retryRepository: jest.Mocked<RetryRepository>;
 
     beforeEach(() => {
         emailRepository = new EmailRepository() as jest.Mocked<EmailRepository>;
-        emailService = new EmailService(emailRepository);
+        retryRepository = new RetryRepository() as jest.Mocked<RetryRepository>;
+        emailService = new EmailService(emailRepository, retryRepository);
         jest.clearAllMocks()
     });
 
@@ -27,7 +31,6 @@ describe('EmailService - Failover Test', () => {
         };
         const senderEmail = 'sender@example.com';
 
-        // Mock email count to allow sending
         emailRepository.getEmailCountForUserToday.mockResolvedValue(10);
         emailRepository.createEmail.mockResolvedValue({
             id: "1",

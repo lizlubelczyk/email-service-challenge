@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import { EmailService } from './EmailService';
 import EmailRepository from "./EmailRepository";
-import {SendEmailDTO} from "./dto/SendEmailDTO";  // Import the class, not the instance
+import {SendEmailDTO} from "./dto/SendEmailDTO";
+import RetryRepository from "./RetryRepository";  // Import the class, not the instance
 
 
 class EmailController {
@@ -32,4 +33,4 @@ class EmailController {
     }
 }
 
-export default new EmailController(new EmailService(new EmailRepository()));
+export default new EmailController(new EmailService(new EmailRepository(), new RetryRepository()));
