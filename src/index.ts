@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import EmailRoutes from "./email/EmailRoutes";
 import AuthRoutes from "./auth/AuthRoutes";
+import "./scheduler.ts";
 
 const app = express();
 import pkg from 'pg';

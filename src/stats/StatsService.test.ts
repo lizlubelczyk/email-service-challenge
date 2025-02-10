@@ -11,6 +11,8 @@ describe('StatsService', () => {
     beforeEach(() => {
         emailRepository = new EmailRepository() as jest.Mocked<EmailRepository>;
         statsService = new StatsService(emailRepository);
+
+        jest.clearAllMocks();
     });
 
     it('should return stats from EmailRepository as a list of objects with email and emailCount properties', async () => {

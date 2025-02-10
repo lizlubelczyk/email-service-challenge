@@ -6,6 +6,7 @@ const config: Config = {
     transform: {
         '^.+\\.ts?$': 'ts-jest',
     },
+    testMatch: ['**/?(*.)+(spec|test).ts'],
     moduleFileExtensions: ['ts', 'js', 'json', 'node'],
 };
 

@@ -1,5 +1,5 @@
 import {CreateUserDTO} from "./dto/CreateUserDTO";
-import {PrismaClient, user } from "@prisma/client";
+import {PrismaClient, User } from "@prisma/client";
 
 class UserRepository {
   private prisma: PrismaClient;
@@ -8,7 +8,7 @@ class UserRepository {
       this.prisma = new PrismaClient();
   }
 
-  public async create(data: CreateUserDTO): Promise<user> {
+  public async create(data: CreateUserDTO): Promise<User> {
         return this.prisma.user.create({
             data: {
                 email: data.email,

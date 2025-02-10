@@ -14,18 +14,27 @@ datasource db {
 }
 
 model Email {
-  id        String   @id @default(cuid())
-  senderEmail     String
-  createdAt DateTime @default(now())
+  id          String   @id @default(cuid())
+  senderEmail String
+  createdAt   DateTime @default(now())
 }
 
-model UserRole {
-    id        String   @id @default(cuid())
-    email     String   @unique
-    role      Role     @default(USER)
+model User {
+  id    String @id @default(cuid())
+  email String @unique
+  role  Role   @default(USER)
 }
 
 enum Role {
-    USER
-    ADMIN
+  USER
+  ADMIN
+}
+
+model Retry {
+  id      String  @id @default(cuid())
+  from    String
+  to      String
+  subject String
+  body    String
+  sent    Boolean @default(false)
 }
