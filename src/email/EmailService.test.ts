@@ -82,7 +82,7 @@ describe('EmailService - Failover Test', () => {
         };
         const senderEmail = 'sender@example.com';
 
-        emailRepository.getEmailCountForUserToday.mockResolvedValue(1000);
+        emailRepository.getEmailCountForUserToday.mockResolvedValue(999);
 
         await expect(emailService.sendEmail(sendEmailDTO, senderEmail))
             .rejects.toThrow('You have reached the maximum email limit for today');
