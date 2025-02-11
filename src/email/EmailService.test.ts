@@ -82,7 +82,7 @@ describe('EmailService - Failover Test', () => {
         };
         const senderEmail = 'sender@example.com';
 
-        emailRepository.getEmailCountForUserToday.mockResolvedValue(999);
+        emailRepository.getEmailCountForUserToday.mockResolvedValue(1000);
 
         await expect(emailService.sendEmail(sendEmailDTO, senderEmail))
             .rejects.toThrow('You have reached the maximum email limit for today');
@@ -90,5 +90,34 @@ describe('EmailService - Failover Test', () => {
         expect(emailRepository.getEmailCountForUserToday).toHaveBeenCalledWith(senderEmail);
         expect(sendMailgunEmail).not.toHaveBeenCalled();
         expect(sendSendgridEmail).not.toHaveBeenCalled();
+    });
+
+    it('should save unsent email as a retry', async () => {
+        const sendEmailDTO: SendEmailDTO = {
+            to: 'recipient@example.com',
+            subject: 'Test Email',
+            body: 'This is a test email'
+        };
+        const senderEmail = 'sender@example.com';
+
+        emailRepository.getEmailCountForUserToday.mockResolvedValue(10);
+        emailRepository.createEmail.mockResolvedValue({
+            id: "1",
+            senderEmail: 'sender@example.com',
+            createdAt: new Date(),
+        });
+
+        (sendMailgunEmail as jest.Mock).mockRejectedValue(new Error('Mailgun failed'));
+        (sendSendgridEmail as jest.Mock).mockRejectedValue(new Error('SendGrid failed'));
+
+        await expect(emailService.sendEmail(sendEmailDTO, senderEmail))
+            .rejects.toThrow('Failed to send email via both Mailgun and SendGrid');
+
+        expect(retryRepository.createRetry).toHaveBeenCalledWith(
+            "sender@example.com",
+            "recipient@example.com",
+            "Test Email",
+            "This is a test email",
+        );
     });
 });
