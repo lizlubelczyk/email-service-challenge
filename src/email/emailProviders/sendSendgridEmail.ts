@@ -9,7 +9,7 @@ async function sendSendgridEmail(sendEmailDTO: SendEmailDTO, replyTo: string): P
         const msg = {
             to: sendEmailDTO.to,
             from: from,
-            subject: sendEmailDTO.subject,
+            subject: `email from ${replyTo}: ${sendEmailDTO.subject}`,
             text: sendEmailDTO.body,
             replyTo: replyTo,
         };

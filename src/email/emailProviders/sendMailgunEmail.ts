@@ -19,7 +19,7 @@ async function sendMailgunEmail(sendEmailDTO: SendEmailDTO, replyTo: string): Pr
         const mailOptions = {
             from: from,
             to: sendEmailDTO.to,
-            subject: sendEmailDTO.subject,
+            subject: `email from ${replyTo}: ${sendEmailDTO.subject}`,
             text: sendEmailDTO.body,
             replyTo: replyTo,
         };
